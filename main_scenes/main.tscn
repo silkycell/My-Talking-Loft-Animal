@@ -1,0 +1,210 @@
+[gd_scene load_steps=20 format=3 uid="uid://dh04vtbi5pl6f"]
+
+[ext_resource type="Script" path="res://scripts/audio_stream_record.gd" id="1_y38pu"]
+[ext_resource type="Texture2D" uid="uid://fjvh8ikqx6ey" path="res://bg.png" id="2_8uccc"]
+[ext_resource type="Script" path="res://scripts/main/cat.gd" id="3_6bg8q"]
+[ext_resource type="PackedScene" uid="uid://c77j8pl15nchb" path="res://images/cat_sprite.aseprite" id="3_h6524"]
+[ext_resource type="PackedScene" uid="uid://drgoi1eas361x" path="res://models/wall.glb" id="5_5m7qk"]
+[ext_resource type="Script" path="res://scripts/fall_apart.gd" id="5_wvid5"]
+[ext_resource type="AudioStream" uid="uid://daw01bo5seab6" path="res://sounds/wall_break.wav" id="7_23qmx"]
+[ext_resource type="PackedScene" uid="uid://fn0bjh66hi6v" path="res://scenes/fade_in.tscn" id="8_1c6uv"]
+[ext_resource type="Script" path="res://scripts/main/settings/sensitivity_visual.gd" id="9_7s1w7"]
+[ext_resource type="Script" path="res://scripts/main/settings/settings_button.gd" id="9_r43dq"]
+[ext_resource type="Script" path="res://scripts/main/settings/reset_save.gd" id="10_jppph"]
+[ext_resource type="Script" path="res://scripts/main/settings/sensitivity_slider.gd" id="11_rrnp8"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_72vu5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_44cgn"]
+content_margin_top = 4.0
+bg_color = Color(1, 0.631373, 0.321569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4p12q"]
+content_margin_top = 4.0
+bg_color = Color(1, 0.631373, 0.321569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jmmib"]
+content_margin_top = 4.0
+bg_color = Color(1, 0.631373, 0.321569, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_js8s7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6qar"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5oq2b"]
+viewport_path = NodePath("FallApart/SubViewport")
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -292.0
+offset_right = 341.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8uccc")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Cat" parent="." instance=ExtResource("3_h6524")]
+position = Vector2(-47, 276)
+scale = Vector2(0.298, 0.298)
+offset = Vector2(504, 96)
+region_rect = Rect2(3934, 4181, 663, 1008)
+script = ExtResource("3_6bg8q")
+
+[node name="AudioStreamRecord" type="AudioStreamPlayer" parent="Cat"]
+stream = SubResource("AudioStreamMicrophone_72vu5")
+autoplay = true
+bus = &"Record"
+script = ExtResource("1_y38pu")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Cat"]
+pitch_scale = 2.0
+bus = &"Voice"
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="Cat"]
+volume_db = -10.0
+
+[node name="SettingsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 43.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_44cgn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_4p12q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jmmib")
+theme_override_styles/focus = SubResource("StyleBoxFlat_44cgn")
+text = "⚙️"
+script = ExtResource("9_r43dq")
+
+[node name="SettingsMenu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -156.5
+offset_top = -287.0
+offset_right = 156.5
+offset_bottom = -85.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SensitivityVisual" type="HSlider" parent="SettingsMenu" node_paths=PackedStringArray("audio_stream_record")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_top = 40.0
+offset_right = 107.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_constants/grabber_offset = -16384
+editable = false
+script = ExtResource("9_7s1w7")
+audio_stream_record = NodePath("../../Cat/AudioStreamRecord")
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsMenu" node_paths=PackedStringArray("audio_stream_record")]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -107.0
+offset_top = 40.0
+offset_right = 107.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_styles/slider = SubResource("StyleBoxEmpty_js8s7")
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_k6qar")
+script = ExtResource("11_rrnp8")
+audio_stream_record = NodePath("../../Cat/AudioStreamRecord")
+
+[node name="Sensitivity" type="Label" parent="SettingsMenu"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 19.0
+offset_right = 131.0
+offset_bottom = 42.0
+text = "Sensitivity
+"
+
+[node name="ResetSaveData" type="Button" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -87.0
+offset_right = 66.0
+offset_bottom = -56.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Reset Save Data"
+script = ExtResource("10_jppph")
+
+[node name="Fade" parent="." instance=ExtResource("8_1c6uv")]
+layout_mode = 1
+
+[node name="FallApart" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_5oq2b")
+expand_mode = 1
+script = ExtResource("5_wvid5")
+
+[node name="SubViewport" type="SubViewport" parent="FallApart"]
+transparent_bg = true
+size = Vector2i(405, 720)
+render_target_update_mode = 4
+
+[node name="wall" parent="FallApart/SubViewport" instance=ExtResource("5_5m7qk")]
+
+[node name="Camera3D" type="Camera3D" parent="FallApart/SubViewport"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.54, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FallApart"]
+stream = ExtResource("7_23qmx")
+
+[connection signal="pressed" from="SettingsButton" to="SettingsButton" method="_on_pressed"]
+[connection signal="drag_ended" from="SettingsMenu/SensitivitySlider" to="SettingsMenu/SensitivitySlider" method="_on_drag_ended"]
+[connection signal="pressed" from="SettingsMenu/ResetSaveData" to="SettingsMenu/ResetSaveData" method="_on_pressed"]
+
+[editable path="Cat"]

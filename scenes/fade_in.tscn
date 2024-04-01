@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://fn0bjh66hi6v"]
+
+[ext_resource type="Script" path="res://scripts/title/fade_in.gd" id="1_y37eq"]
+
+[node name="Fade" type="ColorRect"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_y37eq")

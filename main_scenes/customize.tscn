@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://bp1n1wehememj"]
+
+[ext_resource type="Texture2D" uid="uid://uygdgma4mkqj" path="res://images/cat.png" id="1_0dah5"]
+[ext_resource type="Script" path="res://scripts/customize/customize.gd" id="1_1gnm4"]
+[ext_resource type="Script" path="res://scripts/customize/color_picker.gd" id="3_v8urg"]
+[ext_resource type="AudioStream" uid="uid://bqy8yxn5sv2g4" path="res://sounds/change_value.wav" id="4_h5pdf"]
+[ext_resource type="AudioStream" uid="uid://dp82cgiavgvcd" path="res://sounds/cat_fall.wav" id="5_fbafq"]
+[ext_resource type="FontFile" uid="uid://cy8k2ru2iwuq0" path="res://fonts/Helvetica.ttf" id="6_g5q7d"]
+[ext_resource type="AudioStream" uid="uid://bv861e0410pk1" path="res://music/customize.mp3" id="7_tu84t"]
+
+[node name="Customize" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1gnm4")
+
+[node name="Cat" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 17.5
+offset_top = -141.0
+offset_right = 42.5
+offset_bottom = -103.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(8, 8)
+pivot_offset = Vector2(16, 19)
+texture_normal = ExtResource("1_0dah5")
+texture_pressed = ExtResource("1_0dah5")
+texture_hover = ExtResource("1_0dah5")
+texture_disabled = ExtResource("1_0dah5")
+texture_focused = ExtResource("1_0dah5")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -131.5
+offset_top = -305.0
+offset_right = 132.5
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+edit_alpha = false
+picker_shape = 1
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+presets_visible = false
+script = ExtResource("3_v8urg")
+
+[node name="LoopSFX" type="AudioStreamPlayer" parent="ColorPicker"]
+stream = ExtResource("4_h5pdf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fbafq")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -169.0
+offset_top = 25.0
+offset_right = 169.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_g5q7d")
+theme_override_font_sizes/font_size = 24
+text = "Tap the cat to finish customizing"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tu84t")
+volume_db = -9.0
+
+[connection signal="pressed" from="Cat" to="." method="_on_cat_pressed"]
+[connection signal="color_changed" from="ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="color_changed" from="ColorPicker" to="ColorPicker" method="_on_color_changed"]
+[connection signal="gui_input" from="ColorPicker" to="ColorPicker" method="_on_gui_input"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cyw2mgpsgpmhv"]
+
+[ext_resource type="Texture2D" uid="uid://df1yehye2dokr" path="res://images/speech_bubble.png" id="1_4ufti"]
+[ext_resource type="Script" path="res://scripts/speech_bubble.gd" id="2_xhnpt"]
+[ext_resource type="FontFile" uid="uid://cy8k2ru2iwuq0" path="res://fonts/Helvetica.ttf" id="2_yoqrj"]
+[ext_resource type="AudioStream" uid="uid://dsdtjce2uiu4" path="res://sounds/cat_talk.wav" id="4_djly7"]
+
+[node name="SpeechBubble" type="NinePatchRect"]
+anchors_preset = -1
+anchor_right = 0.526
+anchor_bottom = 0.15
+offset_right = -0.030014
+texture = ExtResource("1_4ufti")
+patch_margin_left = 61
+patch_margin_top = 34
+patch_margin_right = 27
+patch_margin_bottom = 61
+script = ExtResource("2_xhnpt")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 30.0
+offset_right = -21.0
+offset_bottom = -49.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.345098, 0.372549, 0.462745, 1)
+theme_override_fonts/font = ExtResource("2_yoqrj")
+theme_override_font_sizes/font_size = 28
+text = "It's Lofty Time"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_djly7")

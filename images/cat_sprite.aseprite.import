@@ -1,0 +1,31 @@
+[remap]
+
+importer="Aseprite Sprite2D with AnimationPlayer"
+type="PackedScene"
+uid="uid://c77j8pl15nchb"
+path="res://.godot/imported/cat_sprite.aseprite-fad4e7d89355f88f55668d4accff1955.scn"
+
+[deps]
+
+source_file="res://images/cat_sprite.aseprite"
+dest_files=["res://.godot/imported/cat_sprite.aseprite-fad4e7d89355f88f55668d4accff1955.scn"]
+
+[params]
+
+animation/default/name="Idle"
+animation/default/direction=0
+animation/default/repeat_count=0
+animation/autoplay_name="Idle"
+atlas_textures/region_filter_clip_enabled=false
+animation/strategy=0
+sprite/centered=false
+root_node_name=""
+middle_import_script=""
+post_import_script=""
+sprite_sheet/edges_artifacts_avoidance_method=1
+sprite_sheet/sprites_surrounding_color=Color(1, 1, 1, 0)
+sprite_sheet/layout=0
+sprite_sheet/max_cells_in_strip=0
+sprite_sheet/trim_sprites_to_overall_min_size=true
+sprite_sheet/collapse_transparent_sprites=true
+sprite_sheet/merge_duplicated_sprites=true

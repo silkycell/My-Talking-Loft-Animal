@@ -1,0 +1,143 @@
+[gd_scene load_steps=13 format=3 uid="uid://g7c84jtyhuek"]
+
+[ext_resource type="Script" path="res://scripts/title/title.gd" id="1_f5rdi"]
+[ext_resource type="FontFile" uid="uid://4elgcpqf6ntd" path="res://fonts/ヒラギノ角ゴ Pro W3.otf" id="2_1ev7r"]
+[ext_resource type="Texture2D" uid="uid://3442epdabs4g" path="res://images/menu_lofty.png" id="2_est1e"]
+[ext_resource type="Texture2D" uid="uid://d1h6l1ffrb3m8" path="res://images/hole.png" id="2_rjht0"]
+[ext_resource type="Script" path="res://scripts/title/hole.gd" id="3_blcxd"]
+[ext_resource type="AudioStream" uid="uid://de6tlpplr6km2" path="res://sounds/punch.wav" id="4_jcahy"]
+[ext_resource type="Texture2D" uid="uid://uygdgma4mkqj" path="res://images/cat.png" id="5_a5mc5"]
+[ext_resource type="Script" path="res://scripts/title/cat.gd" id="6_xhvgh"]
+[ext_resource type="PackedScene" uid="uid://cyw2mgpsgpmhv" path="res://scenes/speech_bubble.tscn" id="7_kn6y8"]
+[ext_resource type="PackedScene" uid="uid://fn0bjh66hi6v" path="res://scenes/fade_in.tscn" id="8_dy0a2"]
+[ext_resource type="AudioStream" uid="uid://dw3um2qv1kbal" path="res://music/main_menu.mp3" id="9_fb3nk"]
+[ext_resource type="Script" path="res://scripts/title/music.gd" id="10_pc70c"]
+
+[node name="Title" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f5rdi")
+
+[node name="MenuLofty" type="Sprite2D" parent="."]
+position = Vector2(110, 334)
+scale = Vector2(2.92143, 2.92143)
+texture = ExtResource("2_est1e")
+
+[node name="Label2" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.5
+offset_top = -78.0
+offset_right = 166.5
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+bbcode_enabled = true
+text = "[center][i] [wave amp=50.0 freq=5.0 connected=1][rainbow freq=0.1 sat=0.8 val=0.8]𝓣𝓐𝓟 𝓣𝓞 𝓢𝓣𝓐𝓡𝓣"
+autowrap_mode = 0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -166.5
+offset_top = 58.0
+offset_right = 166.5
+offset_bottom = 98.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("2_1ev7r")
+theme_override_font_sizes/font_size = 29
+text = "My Talking Loft Animal"
+horizontal_alignment = 1
+
+[node name="Hole" type="TextureRect" parent="."]
+clip_children = 1
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.5
+offset_top = -137.0
+offset_right = 160.5
+offset_bottom = 137.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rjht0")
+script = ExtResource("3_blcxd")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Hole"]
+stream = ExtResource("4_jcahy")
+
+[node name="Black" type="ColorRect" parent="Hole"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Cat" type="TextureRect" parent="Hole"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.5
+offset_top = 125.0
+offset_right = 16.5
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(16, 19)
+texture = ExtResource("5_a5mc5")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("6_xhvgh")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Hole/Cat"]
+
+[node name="SpeechBubble" parent="Hole/Cat" instance=ExtResource("7_kn6y8")]
+layout_mode = 1
+offset_left = 24.0667
+offset_top = -13.8
+offset_right = 221.289
+offset_bottom = 75.5
+scale = Vector2(0.15, 0.15)
+
+[node name="Fade" parent="." instance=ExtResource("8_dy0a2")]
+layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_fb3nk")
+volume_db = -10.0
+autoplay = true
+script = ExtResource("10_pc70c")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="tapped_screen" from="." to="Hole" method="_on_title_tapped_screen"]
+[connection signal="tapped_screen" from="." to="Hole/Cat" method="_on_title_tapped_screen"]
+[connection signal="tapped_screen" from="." to="AudioStreamPlayer" method="_on_title_tapped_screen"]
+[connection signal="finished_animation" from="Hole/Cat" to="." method="_on_cat_finished_animation"]

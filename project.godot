@@ -1,0 +1,41 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="My Talking Loft Animal"
+run/main_scene="res://main_scenes/splash.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+config/icon="res://icon.png"
+
+[audio]
+
+driver/enable_input=true
+
+[autoload]
+
+Save="*res://scripts/save.gd"
+
+[display]
+
+window/size/viewport_width=405
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/nklbdev.importality/plugin.cfg")
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(1, 1, 1, 1)
